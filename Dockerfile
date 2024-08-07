@@ -28,7 +28,7 @@ RUN rm -rf node_modules/libxmljs/build && \
   cd node_modules/libxmljs && \
   npm run build
 
-FROM gcr.io/distroless/nodejs20-debian11
+FROM fd-node-gold:20.0.0
 ARG BUILD_DATE
 ARG VCS_REF
 LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
@@ -46,6 +46,9 @@ LABEL maintainer="Bjoern Kimminich <bjoern.kimminich@owasp.org>" \
 WORKDIR /juice-shop
 COPY --from=installer --chown=65532:0 /juice-shop .
 COPY --chown=65532:0 --from=libxmljs-builder /juice-shop/node_modules/libxmljs ./node_modules/libxmljs
+RUN apt-get update &&\
+    apt-get install -y git &&\
+    rm -rf /var/lib/apt/lists/*
 USER 65532
 EXPOSE 3000
 CMD ["/juice-shop/build/app.js"]
