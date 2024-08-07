@@ -1,0 +1,25 @@
+title: Forrester Customized Fix PR - This PR fixes {{ issue_count }} issues
+commitMessage: "fixes from Snyk: {{ issue_count }} issues fixed"
+description: |
+  {{ #is_fix_pr }}
+  This is an example of a templated, customized Snyk Fix PR. The PR can be customized
+  by engineering & security teams so their devs understand how this fix was generated, 
+  why it's important, and what to do next.
+  
+  This Fix PR upgrades {{ package_name }} in {{ files_changed }} 
+  from version {{ package_from }} to version {{ package_to }}
+  in order to remediate {{ issue_count }} issues.
+  {{ /is_fix_pr }}
+  
+  {{ #is_upgrade_pr }}
+  This PR has been opened to make sure our repositories are kept up-to-date.
+  It updates {{ package_name }} from version {{ package_from }} to version {{ package_to }}.
+  Review relevant docs for possible breaking changes.
+  {{ /is_upgrade_pr }}
+  
+  **Tickets**
+  {{ #jira_ids }}
+  - Fixes {{ . }}
+  {{ /jira_ids }}
+  
+  To find more details, see the Snyk project [{{ snyk_project_name }}]({{ snyk_project_url }})
